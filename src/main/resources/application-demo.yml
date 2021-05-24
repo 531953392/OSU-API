@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://106.14.180.98:3306/dxs_youxiu?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: nbopendemon
+    password: nbopenlvb
+config:
+    localhost:  https://youxiu.cnyto.me/
+    fileServer: https://static.cnyto.me
+    uploadServer: http://172.19.142.166:8080/Upload
+    extraUserOrderdetail: msg.user.orderdetail
+    extraUserCkeckorder: msg.user.ckeckorder
+    extraShopOrderdetail: msg.shop.orderdetail
+    extraExpressPacketdetail: msg.express.packetdetail
+    extraSystem: msg.system

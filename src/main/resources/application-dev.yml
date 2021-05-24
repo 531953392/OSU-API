@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://106.14.180.98:3306/dxs_youxiu?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: nbopendemon
+    password: nbopenlvb
+    ##  jdbc:mysql://192.168.0.161:8520/newbusiness?useUtf8=true;autoReconnect=true;failOverReadOnly=false
+    ## yiqian901  ZcR7iVGrdxs
+### update file path
+config:
+  localhost: http://server.natappfree.cc:42448/
+  fileServer: http://192.168.0.2:8016/
+  uploadServer: http://172.19.142.166:8080/Upload
+  extraUserOrderdetail: msg.user.orderdetail
+  extraUserCkeckorder: msg.user.ckeckorder
+  extraShopOrderdetail: msg.shop.orderdetail
+  extraExpressPacketdetail: msg.express.packetdetail
+  extraSystem: msg.system
+
+
+
+
+
+
+

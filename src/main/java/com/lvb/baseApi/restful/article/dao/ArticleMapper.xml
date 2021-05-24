@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lvb.baseApi.restful.article.dao.ArticleMapper">
+
+    <select id = "getArticleList" parameterType="java.util.HashMap" resultType="com.lvb.baseApi.restful.article.entity.AppArticle">
+        select * from app_article a where a.status = 0
+        <if test="map.articleTyle!=null">
+            and  a.article_tyle = #{map.articleTyle}
+        </if>
+        order by a.create_time desc
+    </select>
+
+</mapper>
