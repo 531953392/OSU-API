@@ -36,8 +36,6 @@ public class AppUserEntity   implements Serializable {
 
     private Date lastvisit_time;
 
-    private Integer order_number;
-
     private Integer user_type;
 
     private Integer status;

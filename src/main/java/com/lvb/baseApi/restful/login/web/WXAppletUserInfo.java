@@ -23,7 +23,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.security.AlgorithmParameters;
 import java.security.Security;
 import java.util.Arrays;
@@ -101,7 +100,6 @@ public class WXAppletUserInfo {
             new_user.setCreate_time(new Date());
             new_user.setLastvisit_time(new Date());
             new_user.setUser_type(0);
-            new_user.setOrder_number(0);
             new_user.setStatus(0);
             this.appUserService.saveOrUpdate(new_user);
         };
