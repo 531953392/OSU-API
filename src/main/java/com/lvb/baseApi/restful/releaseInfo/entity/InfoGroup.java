@@ -45,6 +45,9 @@ public class InfoGroup implements Serializable
     /** 状态（0正常 1关闭） */
     private Integer status;
 
+    /** 审核状态 10=待审核,20=审核通过,30=审核失败*/
+    private Integer audit_type;
+
     /** 创建者 */
     private String create_by;
 
