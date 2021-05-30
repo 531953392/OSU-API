@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lvb.baseApi.restful.releaseInfo.dao.ReleaseInfoMapper">
+
+    <select id = "getInfoGroupList" parameterType="java.util.HashMap" resultType="com.lvb.baseApi.restful.releaseInfo.entity.InfoGroup">
+        select * from app_info_group a where a.status = 0
+        <if test="map.infoType!=null">
+            and  a.info_type = #{map.infoType}
+        </if>
+        order by a.create_time desc
+    </select>
+
+</mapper>

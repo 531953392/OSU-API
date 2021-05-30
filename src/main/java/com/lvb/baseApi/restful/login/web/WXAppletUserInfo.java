@@ -55,7 +55,7 @@ public class WXAppletUserInfo {
         SessionVo sessionVo=wechatAdapter.jscode2session(wxCode);
         return AjaxResult.builder().code(200).msg("OK").result(sessionVo).build();
     }
-    /*validateLogin
+    /*
      *  获取小程序用户基本信息
      */
     @RequestMapping("/api/login")
@@ -87,9 +87,7 @@ public class WXAppletUserInfo {
             new_user.setId(IdWorker.getFlowIdWorkerInstance().nextId() + "");
             new_user.setUser_name(mobile);
             new_user.setMobile(mobile);
-
             new_user.setNick_name((EmojiFilter.filterEmoji(userInfoVo.getNickName()))==null?mobile:EmojiFilter.filterEmoji(userInfoVo.getNickName()));
-
             new_user.setGender(userInfoVo.getGender());
             new_user.setCity(userInfoVo.getCity());
             new_user.setProvince(userInfoVo.getProvince());
@@ -99,7 +97,6 @@ public class WXAppletUserInfo {
             new_user.setSession_key(sessionVo.getSessionKey());
             new_user.setCreate_time(new Date());
             new_user.setLastvisit_time(new Date());
-            new_user.setUser_type(0);
             new_user.setStatus(0);
             this.appUserService.saveOrUpdate(new_user);
         };
@@ -111,7 +108,6 @@ public class WXAppletUserInfo {
         userInfoVo.setToken(token);
         userInfoVo.setCreateTime(new Date());
         userInfoVo.setMobile(ajaxResult.getData().toString());
-        userInfoVo.setUserType(old_user.getUser_type());
         return AjaxResult.builder().code(200).msg("OK").result(userInfoVo).build();
     }
 

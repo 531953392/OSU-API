@@ -1,12 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://106.14.180.98:3306/dxs_youxiu?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
-#    username: nbopendemon
-#    password: nbopenlvb
-    url: jdbc:mysql://127.0.0.1:3306/osu?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/osu?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
+    #    url: jdbc:mysql://106.14.180.98:3306/dxs_youxiu?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+    #    username: nbopendemon
+    #    password: nbopenlvb
 config:
     localhost:  https://youxiu.cnyto.me/
     fileServer: https://static.cnyto.me

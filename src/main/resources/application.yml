@@ -80,8 +80,8 @@ fdfs:
     jmx-enabled: false
 
 wechat:
-  appid: wx50834869450623d9
-  secret: 0e5124da0a8c009fdc4aadb79bd3d2fc
+  appid: wx47b3a34572fa0c6c
+  secret: c820766ffb4c34032f2ccb1cf84e4cd5
 
 
 

@@ -1,4 +1,4 @@
-package com.lvb.baseApi.restful.article.entity;
+package com.lvb.baseApi.restful.releaseInfo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,32 +13,37 @@ import java.util.Date;
  * @author dxs
  * @date 2021-05-23
  */
-@TableName(value = "app_article")
+@TableName(value = "app_info_group")
 @Data
-public class AppArticle implements Serializable
+public class InfoGroup implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    /** 文章ID */
-    private String article_id;
+    private String id;
 
-    /** 文章标题 */
-    private String article_title;
+    private String user_id;
 
-    /** 文章类型 */
-    private Long article_tyle;
+    private Integer info_type;
 
-    /** 文章摘要 */
-    private String article_summary;
+    private String info_content;
 
-    /** 文章详情链接 */
-    private String article_url;
+    private String image_url_1;
 
-    /** 文章LOGO */
-    private String article_logo;
+    private String image_url_2;
+
+    private String image_url_3;
+
+    private String image_url_4;
+
+    private String user_name;
+
+    private String user_nick_name;
+
+    private String user_avatar_url;
+
 
     /** 状态（0正常 1关闭） */
-    private String status;
+    private Integer status;
 
     /** 创建者 */
     private String create_by;

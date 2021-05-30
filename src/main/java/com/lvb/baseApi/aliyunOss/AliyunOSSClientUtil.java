@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Date;
+
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.Bucket;
 import com.aliyun.oss.model.OSSObject;
@@ -189,6 +191,14 @@ public class AliyunOSSClientUtil {
             return "image/jpeg";
         }
 
+        public static String uploadFileOSS(File files){
+            //初始化OSSClient
+            OSSClient ossClient=AliyunOSSClientUtil.getOSSClient();
+            String md5key = AliyunOSSClientUtil.uploadObject2OSS(ossClient, files, BACKET_NAME, FOLDER);
+            logger.info("上传后的文件MD5数字唯一签名:" + md5key);
+            return md5key;
+        }
+
         //测试
         public static void main(String[] args) {
             //初始化OSSClient
@@ -200,7 +210,11 @@ public class AliyunOSSClientUtil {
                 //System.out.println("filename:"+filename);
                 File filess=new File(filename);
                 String md5key = AliyunOSSClientUtil.uploadObject2OSS(ossClient, filess, BACKET_NAME, FOLDER);
-                logger.info("上传后的文件MD5数字唯一签名:" + md5key);
+                Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000);
+
+                String url = ossClient.generatePresignedUrl(BACKET_NAME, FOLDER, expiration).toString();
+                logger.info("文件访问URL：" + url);
+                System.out.println("filename:"+filename);
                 //上传后的文件MD5数字唯一签名:40F4131427068E08451D37F02021473A
             }
         }
