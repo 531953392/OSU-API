@@ -24,4 +24,15 @@ public class ReleaseInfoService extends ServiceImpl<ReleaseInfoMapper, InfoGroup
     }
 
 
+    public int waitAuditCount(String userid) {
+        return baseMapper.waitAuditCount(userid);
+    }
+
+    public int auditFailCount(String userid) {
+        return baseMapper.auditFailCount(userid);
+    }
+    public int totalCount(String userid) {
+        return baseMapper.totalCount(userid);
+    }
+
 }

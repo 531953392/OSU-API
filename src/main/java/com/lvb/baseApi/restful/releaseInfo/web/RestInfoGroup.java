@@ -97,4 +97,24 @@ public class RestInfoGroup {
         return AjaxResult.builder().code(200).msg("提交情报站成功!").build();
     }
 
+    //状态统计
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    public AjaxResult getReleaseInfoCount(@CurrentUser UserBean user){
+        Map<String,Object> map = new HashMap<>();
+        if(user ==null ){
+            return AjaxResult.builder().code(203).msg("用户信息不存在!").build();
+        };
+        AppUserEntity appUserEntity = appUserService.getUserById(user.getOpenid());
+        if(appUserEntity==null){
+            return AjaxResult.builder().code(203).msg("用户信息不存在!").build();
+        };
+        int waitAuditCount =  releaseInfoService.waitAuditCount(appUserEntity.getId());
+        int auditFailCount =  releaseInfoService.auditFailCount(appUserEntity.getId());
+        int totalCount =  releaseInfoService.totalCount(appUserEntity.getId());
+        map.put("totalCount",totalCount);
+        map.put("waitAuditCount",waitAuditCount);
+        map.put("auditFailCount",auditFailCount);
+        return AjaxResult.builder().result(map).code(200).build();
+    }
+
 }

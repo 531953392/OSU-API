@@ -26,12 +26,13 @@ public class RestArticle {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResultPage getArticleList(Integer page, Integer pageSize, Integer articleTyle, @CurrentUser UserBean user) throws Exception {
+    public ResultPage getArticleList(Integer page, Integer pageSize, Integer articleTyle,String searchKey, @CurrentUser UserBean user) throws Exception {
         Map<String,Object> map = new HashMap<>();
         if(user==null){
             return new ResultPage(203, "请先登录");
         };
         map.put("articleTyle",articleTyle==-1?null:articleTyle);
+        map.put("searchKey",searchKey==""?null:searchKey);
         IPage<AppArticle> listPage = articleService.getArticleList(new Page<>(page, pageSize),map);
         ResultPageData resultPageData = new ResultPageData(listPage.getCurrent(),listPage.getTotal(),listPage.getPages(),listPage.getRecords());
         ResultPage resultPage = new ResultPage(200, "返回列表",resultPageData);

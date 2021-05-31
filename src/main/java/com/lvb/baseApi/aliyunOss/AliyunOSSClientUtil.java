@@ -204,7 +204,7 @@ public class AliyunOSSClientUtil {
             //初始化OSSClient
             OSSClient ossClient=AliyunOSSClientUtil.getOSSClient();
             //上传文件
-            String files="F:\\waikuai\\WeChat-ColorUI\\img\\osu\\image1.png,F:\\waikuai\\WeChat-ColorUI\\img\\osu\\image2.png";
+            String files="F:\\waikuai\\WeChat-ColorUI\\img\\osu\\image3.png";
             String[] file=files.split(",");
             for(String filename:file){
                 //System.out.println("filename:"+filename);

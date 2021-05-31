@@ -8,6 +8,9 @@
         <if test="map.articleTyle!=null">
             and  a.article_tyle = #{map.articleTyle}
         </if>
+        <if test="map.searchKey!=null">
+            and  a.article_title like concat('%', #{map.searchKey}, '%')
+        </if>
         order by a.create_time desc
     </select>
 
