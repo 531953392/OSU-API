@@ -11,4 +11,18 @@
         order by a.create_time desc
     </select>
 
+    <select id = "getMyInfoGroupList" parameterType="java.util.HashMap" resultType="com.lvb.baseApi.restful.releaseInfo.entity.InfoGroup">
+        select * from app_info_group a where a.status = 0
+        <if test="map.infoType!=null">
+            and  a.info_type = #{map.infoType}
+        </if>
+        <if test="map.userId!=null">
+            and  a.user_id = #{map.userId}
+        </if>
+        <if test="map.auditType!=null">
+            and  a.audit_type = #{map.auditType}
+        </if>
+        order by a.create_time desc
+    </select>
+
 </mapper>

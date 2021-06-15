@@ -17,6 +17,10 @@ public interface ReleaseInfoMapper extends BaseMapper<InfoGroup> {
 
     List<InfoGroup> getInfoGroupList(IPage<InfoGroup> page, @Param("map") Map<String,Object> map);
 
+    List<InfoGroup> getMyInfoGroupList(IPage<InfoGroup> page, @Param("map") Map<String,Object> map);
+
+
+
     @Select("SELECT count(*) FROM app_info_group a where a.user_id= #{userid}")
     int totalCount(@Param("userid")String userid);
 

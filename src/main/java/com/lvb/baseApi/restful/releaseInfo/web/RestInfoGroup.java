@@ -35,13 +35,32 @@ public class RestInfoGroup {
     private ReleaseInfoService releaseInfoService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResultPage getArticleList(Integer page, Integer pageSize, Integer infoType, @CurrentUser UserBean user) throws Exception {
+    public ResultPage getArticleList(Integer page, Integer pageSize, Integer infoType,Integer isMy, @CurrentUser UserBean user) throws Exception {
         Map<String,Object> map = new HashMap<>();
         if(user==null){
             return new ResultPage(203, "请先登录");
         };
         map.put("infoType",infoType==-1?null:infoType);
         IPage<InfoGroup> listPage = releaseInfoService.getInfoGroupList(new Page<>(page, pageSize),map);
+        ResultPageData resultPageData = new ResultPageData(listPage.getCurrent(),listPage.getTotal(),listPage.getPages(),listPage.getRecords());
+        ResultPage resultPage = new ResultPage(200, "返回列表",resultPageData);
+        return resultPage;
+    }
+
+    @RequestMapping(value = "/myList", method = RequestMethod.GET)
+    public ResultPage getMyList(Integer page, Integer pageSize, Integer infoType,Integer auditType,@CurrentUser UserBean user) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        if(user==null){
+            return new ResultPage(203, "请先登录");
+        };
+        AppUserEntity appUserEntity = appUserService.getUserById(user.getOpenid());
+        if(appUserEntity == null){
+            return new ResultPage(203, "请先登录");
+        };
+        map.put("infoType",infoType==-1?null:infoType);
+        map.put("auditType",auditType==-1?null:auditType);
+        map.put("userId",appUserEntity.getId());
+        IPage<InfoGroup> listPage = releaseInfoService.getMyInfoGroupList(new Page<>(page, pageSize),map);
         ResultPageData resultPageData = new ResultPageData(listPage.getCurrent(),listPage.getTotal(),listPage.getPages(),listPage.getRecords());
         ResultPage resultPage = new ResultPage(200, "返回列表",resultPageData);
         return resultPage;

@@ -23,6 +23,9 @@ public class ReleaseInfoService extends ServiceImpl<ReleaseInfoMapper, InfoGroup
         return page.setRecords(baseMapper.getInfoGroupList(page,map));
     }
 
+    public IPage<InfoGroup> getMyInfoGroupList(Page<InfoGroup> page, Map<String,Object> map) {
+        return page.setRecords(baseMapper.getMyInfoGroupList(page,map));
+    }
 
     public int waitAuditCount(String userid) {
         return baseMapper.waitAuditCount(userid);
