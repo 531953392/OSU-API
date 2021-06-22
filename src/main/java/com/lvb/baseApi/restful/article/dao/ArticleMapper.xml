@@ -11,7 +11,7 @@
         <if test="map.searchKey!=null">
             and  a.article_title like concat('%', #{map.searchKey}, '%')
         </if>
-        order by a.create_time desc
+        order by a.sort
     </select>
 
 </mapper>

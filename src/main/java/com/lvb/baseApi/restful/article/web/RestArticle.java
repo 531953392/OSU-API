@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lvb.baseApi.common.result.ResultPage;
 import com.lvb.baseApi.common.result.ResultPageData;
-import com.lvb.baseApi.common.util.CurrentUser;
-import com.lvb.baseApi.common.util.UserBean;
 import com.lvb.baseApi.restful.article.entity.AppArticle;
 import com.lvb.baseApi.restful.article.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;

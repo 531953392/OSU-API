@@ -57,4 +57,7 @@ public class AppArticle implements Serializable
     /** 备注 */
     private String remark;
 
+    /** 排序 */
+    private Long sort;
+
 }
