@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lvb.baseApi.restful.shop.dao.ShopMapper">
+
+    <select id = "getShopList" parameterType="java.util.HashMap" resultType="com.lvb.baseApi.restful.shop.entity.AppShop">
+        select * from app_shop a where a.status = 0
+        <if test="map.type!=null">
+            and  a.type = #{map.type}
+        </if>
+        <if test="map.searchKey!=null">
+            and  a.name like concat('%', #{map.searchKey}, '%')
+        </if>
+        order by a.sort
+    </select>
+
+</mapper>
