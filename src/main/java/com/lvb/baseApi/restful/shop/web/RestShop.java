@@ -2,6 +2,7 @@ package com.lvb.baseApi.restful.shop.web;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lvb.baseApi.common.result.AjaxResult;
 import com.lvb.baseApi.common.result.ResultPage;
 import com.lvb.baseApi.common.result.ResultPageData;
 import com.lvb.baseApi.restful.shop.entity.AppShop;
@@ -9,6 +10,7 @@ import com.lvb.baseApi.restful.shop.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -34,6 +36,10 @@ public class RestShop {
         return resultPage;
     }
 
-
+    @RequestMapping(value = "/details", method = RequestMethod.GET)
+    public AjaxResult getShopDetails(@RequestParam String id) {
+        AppShop appShop = shopService.getById(id);
+        return AjaxResult.builder().result(appShop).code(200).build();
+    }
 
 }

@@ -79,4 +79,6 @@ public class AppShop implements Serializable
 
     private String menu_url2;
 
+
+
 }

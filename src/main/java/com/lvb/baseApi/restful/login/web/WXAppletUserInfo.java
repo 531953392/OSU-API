@@ -98,6 +98,7 @@ public class WXAppletUserInfo {
             new_user.setCreate_time(new Date());
             new_user.setLastvisit_time(new Date());
             new_user.setStatus(0);
+            new_user.setVip_card_status(0);
             this.appUserService.saveOrUpdate(new_user);
         };
         //生成用户个人的token
@@ -108,6 +109,7 @@ public class WXAppletUserInfo {
         userInfoVo.setToken(token);
         userInfoVo.setCreateTime(new Date());
         userInfoVo.setMobile(ajaxResult.getData().toString());
+        userInfoVo.setVip_card_status(old_user.getVip_card_status());
         return AjaxResult.builder().code(200).msg("OK").result(userInfoVo).build();
     }
 

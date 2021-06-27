@@ -40,4 +40,13 @@ public class AppUserEntity   implements Serializable {
 
     private Integer status;
 
+    private String birth_day;
+
+    private String full_name;
+
+    private int vip_card_status;
+
+    private Date apply_card_time;
+
+    private Date card_number;
 }

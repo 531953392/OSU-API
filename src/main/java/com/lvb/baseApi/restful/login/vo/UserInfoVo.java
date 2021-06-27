@@ -27,6 +27,6 @@ public class UserInfoVo {
 
     private int userType;
 
-
+    private int vip_card_status;
 
 }
