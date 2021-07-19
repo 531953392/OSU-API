@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lvb.baseApi.restful.enroll.dao.EnrollMapper">
+
+    <select id = "getArticleList" parameterType="java.util.HashMap" resultType="com.lvb.baseApi.restful.enroll.entity.AppEnroll">
+        select * from app_enroll a where a.status = 0
+        <if test="map.id!=null">
+            and  a.enroll_id = #{map.id}
+        </if>
+        order by a.sort
+    </select>
+
+</mapper>
