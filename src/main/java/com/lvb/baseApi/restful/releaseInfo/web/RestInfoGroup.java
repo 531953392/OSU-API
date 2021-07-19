@@ -1,16 +1,13 @@
 package com.lvb.baseApi.restful.releaseInfo.web;
 
-import com.aliyun.oss.OSSClient;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lvb.baseApi.aliyunOss.AliyunOSSClientUtil;
 import com.lvb.baseApi.common.result.AjaxResult;
 import com.lvb.baseApi.common.result.ResultPage;
 import com.lvb.baseApi.common.result.ResultPageData;
 import com.lvb.baseApi.common.util.CurrentUser;
 import com.lvb.baseApi.common.util.IdWorker;
 import com.lvb.baseApi.common.util.UserBean;
-import com.lvb.baseApi.restful.article.entity.AppArticle;
 import com.lvb.baseApi.restful.releaseInfo.entity.InfoGroup;
 import com.lvb.baseApi.restful.releaseInfo.service.ReleaseInfoService;
 import com.lvb.baseApi.restful.user.entity.AppUserEntity;
@@ -35,7 +32,7 @@ public class RestInfoGroup {
     private ReleaseInfoService releaseInfoService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResultPage getArticleList(Integer page, Integer pageSize, Integer infoType,Integer isMy) throws Exception {
+    public ResultPage getArticleList(Integer page, Integer pageSize, Integer infoType) {
         Map<String,Object> map = new HashMap<>();
         map.put("infoType",infoType==-1?null:infoType);
         IPage<InfoGroup> listPage = releaseInfoService.getInfoGroupList(new Page<>(page, pageSize),map);
@@ -45,7 +42,7 @@ public class RestInfoGroup {
     }
 
     @RequestMapping(value = "/myList", method = RequestMethod.GET)
-    public ResultPage getMyList(Integer page, Integer pageSize, Integer infoType,Integer auditType,@CurrentUser UserBean user) throws Exception {
+    public ResultPage getMyList(Integer page, Integer pageSize, Integer infoType,Integer auditType,@CurrentUser UserBean user) {
         Map<String,Object> map = new HashMap<>();
         if(user==null){
             return new ResultPage(203, "请先登录");
@@ -111,6 +108,25 @@ public class RestInfoGroup {
         }
         this.releaseInfoService.saveOrUpdate(infoGroup);
         return AjaxResult.builder().code(200).msg("提交情报站成功!").build();
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public AjaxResult delete(@RequestBody Map<String,Object> info, @CurrentUser UserBean user)  {
+        if(user ==null ){
+            return AjaxResult.builder().code(203).msg("用户信息不存在!").build();
+        };
+        AppUserEntity appUserEntity = appUserService.getUserById(user.getOpenid());
+        if(appUserEntity == null){
+            return AjaxResult.builder().code(203).msg("用户信息不存在!").build();
+        };
+        JSONObject model = JSONObject.fromObject( info.get("info"));
+        String id = model.getString("id");
+        InfoGroup infoGroup = releaseInfoService.getById(id);
+        if(infoGroup==null){
+            return AjaxResult.builder().code(203).msg("情报站不存在,无法删除!").build();
+        }
+        this.releaseInfoService.removeById(id);
+        return AjaxResult.builder().code(200).msg("删除情报站成功!").build();
     }
 
     //状态统计
