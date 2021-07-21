@@ -9,12 +9,11 @@ import com.lvb.baseApi.common.util.CurrentUser;
 import com.lvb.baseApi.common.util.IdWorker;
 import com.lvb.baseApi.common.util.UserBean;
 import com.lvb.baseApi.restful.enroll.entity.AppEnroll;
+import com.lvb.baseApi.restful.enroll.entity.AppEnrollUser;
 import com.lvb.baseApi.restful.enroll.service.EnrollService;
-import com.lvb.baseApi.restful.releaseInfo.entity.InfoGroup;
+import com.lvb.baseApi.restful.enroll.service.EnrollUserInfoService;
 import com.lvb.baseApi.restful.user.entity.AppUserEntity;
 import com.lvb.baseApi.restful.user.service.AppUserService;
-import io.netty.util.internal.StringUtil;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +34,8 @@ public class RestEnroll {
     private EnrollService enrollService;
     @Autowired
     private AppUserService appUserService;
+    @Autowired
+    private EnrollUserInfoService EnrollUserInfoService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResultPage getArticleList(Integer page, Integer pageSize,String id) throws Exception {
@@ -47,7 +48,7 @@ public class RestEnroll {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public AjaxResult upload(@RequestBody List<AppEnroll> info, @CurrentUser UserBean user)  {
+    public AjaxResult save(@RequestBody List<AppEnroll> info, @CurrentUser UserBean user)  {
         if(user ==null ){
             return AjaxResult.builder().code(203).msg("用户信息不存在!").build();
         };
@@ -55,7 +56,25 @@ public class RestEnroll {
         if(appUserEntity == null){
             return AjaxResult.builder().code(203).msg("用户信息不存在!").build();
         };
-        return AjaxResult.builder().code(200).msg("提交报名成功!").build();
+        List<AppEnrollUser> appEnrollUserList = EnrollUserInfoService.getByUserId(appUserEntity.getId());
+        if(appEnrollUserList.size()!=0){
+            return AjaxResult.builder().code(203).msg("你已提交过本期报名，请勿重复提交!").build();
+        }else {
+            for (AppEnroll appEnroll : info) {
+                AppEnrollUser item = new AppEnrollUser();
+                item.setId(IdWorker.getFlowIdWorkerInstance().nextId() + "");
+                item.setUser_id(appUserEntity.getId());
+                item.setUser_name(appUserEntity.getUser_name());
+                item.setUser_nick_name(appUserEntity.getNick_name());
+                item.setUser_avatar_url(appUserEntity.getAvatar_url());
+                item.setCreate_time(new Date());
+                item.setEnroll_id(appEnroll.getEnroll_id());
+                item.setEnroll_title(appEnroll.getProblem());
+                item.setEnroll_value(appEnroll.getValue());
+                EnrollUserInfoService.save(item);
+            };
+            return AjaxResult.builder().code(200).msg("提交报名成功!").build();
+        }
     }
 
 }
