@@ -17,6 +17,8 @@ public class EnrollUserInfoService extends ServiceImpl<EnrollUserInfoMapper, App
         return baseMapper.getByUserId(userId);
     }
 
-
+    public List<AppEnrollUser> getByEnrollId(String enrollId) {
+        return baseMapper.getByEnrollId(enrollId);
+    }
 
 }

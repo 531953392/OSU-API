@@ -56,25 +56,31 @@ public class RestEnroll {
         if(appUserEntity == null){
             return AjaxResult.builder().code(203).msg("用户信息不存在!").build();
         };
-        List<AppEnrollUser> appEnrollUserList = EnrollUserInfoService.getByUserId(appUserEntity.getId());
-        if(appEnrollUserList.size()!=0){
-            return AjaxResult.builder().code(203).msg("你已提交过本期报名，请勿重复提交!").build();
+        if(info.size()!=0){
+            List<AppEnrollUser> appEnrollUserList = EnrollUserInfoService.getByEnrollId(info.get(0).getEnroll_id());
+            if(appEnrollUserList.size()!=0){
+                return AjaxResult.builder().code(203).msg("你已提交过本期报名，请勿重复提交!").build();
+            }else {
+                for (AppEnroll appEnroll : info) {
+                    AppEnrollUser item = new AppEnrollUser();
+                    item.setId(IdWorker.getFlowIdWorkerInstance().nextId() + "");
+                    item.setUser_id(appUserEntity.getId());
+                    item.setUser_name(appUserEntity.getUser_name());
+                    item.setUser_nick_name(appUserEntity.getNick_name());
+                    item.setUser_avatar_url(appUserEntity.getAvatar_url());
+                    item.setCreate_time(new Date());
+                    item.setEnroll_id(appEnroll.getEnroll_id());
+                    item.setEnroll_title(appEnroll.getProblem());
+                    item.setEnroll_value(appEnroll.getValue());
+                    EnrollUserInfoService.save(item);
+                };
+                return AjaxResult.builder().code(200).msg("提交报名成功!").build();
+            }
         }else {
-            for (AppEnroll appEnroll : info) {
-                AppEnrollUser item = new AppEnrollUser();
-                item.setId(IdWorker.getFlowIdWorkerInstance().nextId() + "");
-                item.setUser_id(appUserEntity.getId());
-                item.setUser_name(appUserEntity.getUser_name());
-                item.setUser_nick_name(appUserEntity.getNick_name());
-                item.setUser_avatar_url(appUserEntity.getAvatar_url());
-                item.setCreate_time(new Date());
-                item.setEnroll_id(appEnroll.getEnroll_id());
-                item.setEnroll_title(appEnroll.getProblem());
-                item.setEnroll_value(appEnroll.getValue());
-                EnrollUserInfoService.save(item);
-            };
-            return AjaxResult.builder().code(200).msg("提交报名成功!").build();
+            return AjaxResult.builder().code(203).msg("提交报名失败!").build();
         }
+
+
     }
 
 }

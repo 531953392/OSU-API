@@ -15,4 +15,6 @@ public interface EnrollUserInfoMapper extends BaseMapper<AppEnrollUser> {
 
     List<AppEnrollUser> getByUserId(@Param("userId") String userId);
 
+    List<AppEnrollUser> getByEnrollId(@Param("enrollId") String enrollId);
+
 }

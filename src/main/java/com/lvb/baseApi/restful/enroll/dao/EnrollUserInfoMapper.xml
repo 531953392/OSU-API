@@ -6,4 +6,8 @@
     <select id = "getByUserId" parameterType="java.util.ArrayList" resultType="com.lvb.baseApi.restful.enroll.entity.AppEnrollUser">
         select * from app_enroll_user a where a.user_id = #{userId}
     </select>
+
+    <select id = "getByEnrollId" parameterType="java.util.ArrayList" resultType="com.lvb.baseApi.restful.enroll.entity.AppEnrollUser">
+        select * from app_enroll_user a where a.enroll_id = #{enrollId}
+    </select>
 </mapper>
